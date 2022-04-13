@@ -1,6 +1,5 @@
 package io.delightedqian.d1_set;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -11,10 +10,10 @@ import java.util.Set;
  * DATE:  2022/4/12
  * TIME:  17:11
  */
-public class SetDemo01 {
+public class SetDemo04 {
     public static void main(String[] args) {
-        Set<String> sets = new HashSet<>();
-        //Set<String> sets = new LinkedHashSet<>();
+      //  Set<String> sets = new HashSet<>();
+        Set<String> sets = new LinkedHashSet<>();
         sets.add("Java");
         sets.add("Java");
         sets.add("HTML");
