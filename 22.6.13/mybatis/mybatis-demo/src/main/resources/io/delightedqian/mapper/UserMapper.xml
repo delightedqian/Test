@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace 名称空间  可以自己随便写 -->
+<!--id     sql的唯一标识 不能重复 -->
+<!--resultType  返回值的类型 -->
+<mapper namespace="io.delightedqian.mapper.UserMapper">
+    <select id="selectAll" resultType="io.delightedqian.pojo.User">
+    SELECT *from tb_user2;
+  </select>
+</mapper>
+
+
+

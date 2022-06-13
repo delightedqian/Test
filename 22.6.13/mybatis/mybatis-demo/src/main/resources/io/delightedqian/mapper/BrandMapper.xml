@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace 名称空间  可以自己随便写 -->
+<!--id     sql的唯一标识 不能重复 -->
+<!--resultType  返回值的类型 -->
+<mapper namespace="io.delightedqian.mapper.BrandMapper">
+
+    <!--    解决因实体类属性名与数据库列表名不一致导致的 不能封装数据的问题-->
+    <resultMap id="brandResultMap" type="brand">
+        <result column="brand_name" property="brandName"/>
+        <result column="company_name" property="companyName"/>
+    </resultMap>
+
+
+
+    <!--查询所有-->
+    <select id="selectAll" resultMap="brandResultMap">
+        select *from tb_brand2;
+    </select>
+    <!--查询详情-->
+    <select id="selectById" resultMap="brandResultMap">
+    select * from tb_brand2 where id = #{id};
+    </select>
+    <!--    多条件查询-->
+    <!--    <select id="selectByCondition" resultMap="brandResultMap">-->
+    <!--    select * from tb_brand2 where-->
+    <!--    status = #{status}-->
+    <!--    and company_name like #{companyName}-->
+    <!--    and brand_name like #{brandName}-->
+    <!--    </select>-->
+
+    <!--       多条件查询 之 动态条件查询 -->
+    <select id="selectByCondition" resultMap="brandResultMap">
+        select * from tb_brand2
+        <where>
+            <if test="status !=null">
+                and status = #{status}
+            </if>
+            <if test="companyName!=null and companyName!=''">
+                and company_name like #{companyName}
+            </if>
+            <if test="brandName!=null and brandName!=''">
+                and brand_name like #{brandName}
+            </if>
+        </where>
+
+
+    </select>
+    <!-- 单条件查询 之 动态条件查询-->
+    <select id="selectByConditionSingle" resultMap="brandResultMap">
+        select * from tb_brand2
+        <where>
+            <choose>
+                <when test="status !=null">
+                    status = #{status}
+                </when>
+                <when test="companyName!=null and companyName!=''">
+                    company_name like #{companyName}
+                </when>
+                <when test="brandName!=null and brandName!=''">
+                    brand_name like #{brandName}
+                </when>
+
+
+            </choose>
+        </where>
+    </select>
+
+    <!--    添加-->
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_brand2(brand_name, company_name, ordered, description, status)
+        values(#{brandName},#{companyName},#{ordered},#{description},#{status});
+    </insert>
+    <!--修改-->
+<!--        <update id="update">-->
+<!--            update tb_brand2 set-->
+<!--            brand_name=#{brandName},-->
+<!--            company_name=#{companyName},-->
+<!--            ordered=#{ordered},-->
+<!--            description=#{description},-->
+<!--            status=#{status}-->
+<!--            where-->
+<!--            id=#{id};-->
+<!--        </update>-->
+
+    <!--动态修改-->
+    <update id="update">
+            update tb_brand2
+            <set>
+                <if test="brandName!=null and brandName!=''">
+                    brand_name=#{brandName},
+                </if>
+                <if test="companyName!=null and companyName!=''">
+                    company_name=#{companyName},
+                </if>
+                <if test="ordered!=null">
+                    ordered=#{ordered},
+                </if>
+                <if test="description!=null and description!=''">
+                    description=#{description},
+                </if>
+                <if test="status!=null">
+                    status=#{status}
+                </if>
+            </set>
+
+          where
+            id=#{id};
+        </update>
+
+<!--    删除 根据id-->
+<!--    <delete id="deleteById">-->
+<!--        delete from tb_brand2 where id=#{id};-->
+<!--    </delete>-->
+    <!--批量删除-->
+    <delete id="deleteByIds">
+        delete from     tb_brand2 where id in (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        );
+    </delete>
+</mapper>
+
+
+
