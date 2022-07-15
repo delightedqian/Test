@@ -1,0 +1,9 @@
+io\delightedqian\web\SelectByIdServlet.class
+io\delightedqian\web\updateServlet.class
+io\delightedqian\web\selectAllServlet.class
+io\delightedqian\pojo\Brand.class
+io\delightedqian\web\deleteServlet.class
+io\delightedqian\web\addServlet.class
+io\delightedqian\util\SqlSessionFactoryUtils.class
+io\delightedqian\mapper\BrandMapper.class
+io\delightedqian\service\BrandService.class
